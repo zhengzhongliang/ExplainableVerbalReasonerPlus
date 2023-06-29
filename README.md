@@ -29,7 +29,7 @@ python -m preliminary_experiments.experiments_end2end.train_t5e2e \
   --batch_size=1 --grad_accu=16
 ```
 
-## Train and evalate the EVR+ modules
+## Train and evaluate the EVR+ modules
 ```
 python -m \
     preliminary_experiments.experiments_evr.train_evr \
