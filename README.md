@@ -26,7 +26,8 @@ An example script to train and evaluate the end-to-end model
 ```
 python -m preliminary_experiments.experiments_end2end.train_t5e2e \
   --task_name="chaining_v1.0" --n_train=${N_TRAIN} \
-  --batch_size=1 --grad_accu=16
+  --batch_size=1 --grad_accu=16 \
+  --save_folder_path=[some path]
 ```
 
 ## Train and evaluate the EVR+ modules
@@ -34,7 +35,8 @@ python -m preliminary_experiments.experiments_end2end.train_t5e2e \
 python -m \
     preliminary_experiments.experiments_evr.train_evr \
     --task_name="cartesian_v1.0" --du=3 --n_train=2000 \
-    --model_name="allenai/unifiedqa-t5-base"
+    --model_name="allenai/unifiedqa-t5-base" \
+    --save_folder_path=[some path]
 ```
 
 ## Run EVR+ inference with the trained modules
