@@ -1,17 +1,18 @@
-import json
+import os
 import random
 import re
+import pathlib
 
 from preliminary_experiments.data_generation.data_utils import DataUtils
 
 
 class ExpDatasetUtils:
 
-    data_folder_paths = {
-        "mac": "/Users/curry/zhengzhong/research/2022_NLTuringMachine/data/",
-        "alix": "/home/zhengzhongliang/CLU_Projects/2022_IntermediateAnnotation/data/",
-        "hpc": "/home/u15/zhengzhongliang/2022_IntermediateAnnotation/data/"
-    }
+    file_path = pathlib.Path(__file__).resolve().parent
+    project_script_folder_path = file_path.parent.parent
+    project_folder_path = project_script_folder_path.parent
+
+    data_folder_path = os.path.join(project_folder_path, "/data/")
 
     @classmethod
     def remove_dataset_version(cls, dataset_name_with_version):
@@ -30,7 +31,7 @@ class ExpDatasetUtils:
         return [cls.remove_dataset_version(t) for t in tasks_w_version]
 
     @classmethod
-    def load_data(cls, seed=None, n_train=20000, machine_switch="alix", data_pattern="chaining", dev_ratio=0.1):
+    def load_data(cls, seed=None, n_train=20000, data_pattern="chaining", dev_ratio=0.1):
         """
         This function loads the data and also sample the data if specified. This function should be used in all models
             and all experiments to load the data.
@@ -49,7 +50,7 @@ class ExpDatasetUtils:
         data_pattern_no_version = cls.remove_dataset_version(data_pattern)
         assert data_pattern_no_version in data_patterns
 
-        data_folder_path = cls.data_folder_paths[machine_switch]
+        data_folder_path = cls.data_folder_path
         data_path = {
             "chaining": {
                 2: data_folder_path + data_pattern + "/chaining_data_du2.json",
@@ -110,7 +111,7 @@ class ExpDatasetUtils:
         return instances_all_du
 
     @classmethod
-    def load_data_evr(cls, seed=None, n_train=20000, machine_switch="alix", data_pattern="chaining", dev_ratio=0.1):
+    def load_data_evr(cls, seed=None, n_train=20000, data_pattern="chaining", dev_ratio=0.1):
         """
         This function loads the data and also sample the data if specified. This function should be used in all models
             and all experiments to load the data.
@@ -127,7 +128,7 @@ class ExpDatasetUtils:
                          "chaining_tree_search", "cartesian_tree_search", "chaining_cartesian_tree_search"]
         assert data_pattern in data_patterns
 
-        data_folder_path = cls.data_folder_paths[machine_switch]
+        data_folder_path = cls.data_folder_path
         data_path = {
             "chaining_v0.4_evr_v0.1": {
                 2: data_folder_path + data_pattern + "/" + data_pattern + "_du2.json",
@@ -190,7 +191,7 @@ class ExpDatasetUtils:
     def load_data_debug(cls):
 
         data = cls.load_data(
-            seed=1, n_train=500, machine_switch="mac", data_pattern="chaining_tree_search_v0.3", dev_ratio=0.1)
+            seed=1, n_train=500, data_pattern="chaining_tree_search_v0.3", dev_ratio=0.1)
 
         print(data[2]["train"][100])
 

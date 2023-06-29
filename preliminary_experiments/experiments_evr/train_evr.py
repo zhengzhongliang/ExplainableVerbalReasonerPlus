@@ -28,6 +28,7 @@ _MACHINE_SWITCH = flags.DEFINE_string("machine_switch", "hpc", "which machine to
 _MODEL_LOAD_PATH = flags.DEFINE_string("model_load_path", "None", "load a pre-trained model from a checkpoint")
 _TRANSFER_MODEL_DATA_N_AMT = flags.DEFINE_string("transfer_model_data_n_amt", "None", ("the amount of transfer learning"
                                                                                        "data"))
+_SAVE_FOLDER_PATH = flags.DEFINE_string("save_folder_path", "./", "The folder to save the models and results")
 
 
 class TrainEVR:
@@ -81,12 +82,7 @@ class TrainEVR:
     
         self.n_test_ood_examples = self.training_config["n_test_ood_examples"]
     
-        self.save_folder_path = {
-            "mac": "",
-            "alix": "/home/zhengzhongliang/CLU_Projects/2022_IntermediateAnnotation/saved_models/",
-            "hpc": "/xdisk/msurdeanu/zhengzhongliang/",
-            "hpc_user": "/home/u15/zhengzhongliang/2022_IntermediateAnnotation/saved_models/"
-        }
+        self.save_folder_path = _SAVE_FOLDER_PATH.value
     
         self.model_save_name = {
             "t5-small": "t5small",
@@ -102,7 +98,7 @@ class TrainEVR:
         # date, exp setting (e2e, e2e with explanation, evr), task name, transfer name and amt
         self.date_year_month_day = datetime.today().strftime('%Y%m%d')
         self.task_name_save = "-".join([ExpDatasetUtils.remove_dataset_version(t_n) for t_n in self.task_name.split("-")])
-        self.exp_save_folder_path = self.save_folder_path[self.machine_switch] + self.date_year_month_day + \
+        self.exp_save_folder_path = self.save_folder_path + self.date_year_month_day + \
                                     "_evr_" + self.task_name_save + \
                                     ("" if self.transfer_model_data_n_amt == "None"
                                      else "_" + self.transfer_model_data_n_amt) + "/"
@@ -152,7 +148,6 @@ class TrainEVR:
         for task_name in task_names:
             instances_all_depth = ExpDatasetUtils.load_data(seed=self.model_seed,
                                                             n_train=self.n_train,
-                                                            machine_switch=self.machine_switch,
                                                             data_pattern=task_name,
                                                             dev_ratio=self.dev_ratio)
 

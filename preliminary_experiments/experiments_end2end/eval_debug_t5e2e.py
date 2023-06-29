@@ -27,7 +27,7 @@ _MODEL_LOAD_PATH = flags.DEFINE_string("model_load_path", "", "The path to load 
 class EvalDebugT5E2E:
 
     @classmethod
-    def load_and_eval(cls, depths=range(6), split="test", machine_switch="hpc", debug_flag=False):
+    def load_and_eval(cls, depths=range(6), split="test", debug_flag=False):
 
         assert split in ["train", "dev", "test"]
 
@@ -41,7 +41,6 @@ class EvalDebugT5E2E:
         # Load the instances
         instances_all_du = ExpDatasetUtils.load_data(seed=_SEED.value,
                                                      n_train=_N_TRAIN.value,
-                                                     machine_switch=machine_switch,
                                                      data_pattern=_DATA_PATTERN.value,
                                                      dev_ratio=0.1)
 
@@ -120,7 +119,6 @@ class EvalDebugT5E2E:
         # Load the instances
         instances_all_du = ExpDatasetUtils.load_data(seed=_SEED.value,
                                                      n_train=_N_TRAIN.value,
-                                                     machine_switch=machine_switch,
                                                      data_pattern=_DATA_PATTERN.value,
                                                      dev_ratio=0.1)
 

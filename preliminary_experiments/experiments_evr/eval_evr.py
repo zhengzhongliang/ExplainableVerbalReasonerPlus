@@ -166,7 +166,6 @@ class EVREvaluatorFormal:
 
         instances_all_du = ExpDatasetUtils.load_data(seed=self.model_seed,
                                                      n_train=self.n_train,
-                                                     machine_switch=self.machine_switch,
                                                      data_pattern=self.task_name,
                                                      dev_ratio=0.1)
 

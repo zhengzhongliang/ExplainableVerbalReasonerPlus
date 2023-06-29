@@ -28,6 +28,7 @@ _MACHINE_SWITCH = flags.DEFINE_string("machine_switch", "hpc", "which machine to
 _MODEL_LOAD_PATH = flags.DEFINE_string("model_load_path", "None", "load a pre-trained model from a checkpoint")
 _TRANSFER_MODEL_DATA_N_AMT = flags.DEFINE_string("transfer_model_data_n_amt", "None", ("the amount of transfer learning"
                                                                                        "data"))
+_SAVE_FOLDER_PATH = flags.DEFINE_string("save_folder_path", "./", "The folder to save the models and results.")
 
 
 class TrainT5E2E:
@@ -83,12 +84,7 @@ class TrainT5E2E:
         self.num_workers = self.training_config["num_workers"]
         self.dev_ratio = self.training_config["dev_ratio"]
 
-        self.save_folder_path = {
-            "mac": "",
-            "alix": "/home/zhengzhongliang/CLU_Projects/2022_IntermediateAnnotation/saved_models/",
-            "hpc": "/xdisk/msurdeanu/zhengzhongliang/",
-            "hpc_user": "/home/u15/zhengzhongliang/2022_IntermediateAnnotation/saved_models/"
-        }
+        self.save_folder_path = _SAVE_FOLDER_PATH.value
 
         self.model_save_name = {
             "t5-small": "t5small",
@@ -105,9 +101,9 @@ class TrainT5E2E:
             ExpDatasetUtils.remove_dataset_version(t_n) for t_n in self.task_name.split("-")])
         self.date_year_month_day = datetime.today().strftime('%Y%m%d')
         self.exp_save_folder_path = (
-            f"{self.save_folder_path[self.machine_switch]}{self.date_year_month_day}_t5e2e_{self.task_name_save}/"
+            f"{self.save_folder_path}{self.date_year_month_day}_t5e2e_{self.task_name_save}/"
         ) if self.transfer_model_data_n_amt == "None" else (
-            f"{self.save_folder_path[self.machine_switch]}{self.date_year_month_day}_t5e2e_{self.task_name_save}_"
+            f"{self.save_folder_path}{self.date_year_month_day}_t5e2e_{self.task_name_save}_"
             f"{self.transfer_model_data_n_amt}/"
         )
 
@@ -138,7 +134,6 @@ class TrainT5E2E:
         for task_name in task_names:
             instances_all_depth = ExpDatasetUtils.load_data(seed=self.model_seed,
                                                             n_train=self.n_train,
-                                                            machine_switch=self.machine_switch,
                                                             data_pattern=task_name,
                                                             dev_ratio=self.dev_ratio)
 

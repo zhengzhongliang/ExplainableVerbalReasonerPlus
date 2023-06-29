@@ -98,7 +98,6 @@ class EVRModuleEvaluator:
         # Load the instances
         instances_all_du = ExpDatasetUtils.load_data(seed=self.model_seed,
                                                      n_train=self.n_train,
-                                                     machine_switch=self.machine_switch,
                                                      data_pattern=self.task_name,
                                                      dev_ratio=0.1)
         instances_all = TasksDataset.get_evr_instances(instances_all_du, self.task_name)[self.du_test]["test"]
