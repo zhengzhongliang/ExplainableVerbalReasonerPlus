@@ -1,7 +1,7 @@
 This repo stores the code for [Explainable Verbal Reasoner Plus (EVR+): A Natural Language Reasoning Framework that Supports Diverse Compositional Reasoning](https://arxiv.org/abs/2305.00061), where a reasoning framework is proposed to flexibly compose language models to solve diverse compositional reasoning problems. 
 
 # Download the SynthCompR Dataset
-The dataset is available through Huggingface Hub. Repo link: [here](https://huggingface.co/zhengzhongliang/SynthCompR/tree/main)
+The dataset is available through Huggingface Hub. Repo link: [here](https://huggingface.co/datasets/zhengzhongliang/SynthCompR/tree/main)
 
 # Repo Organization
 ## preliminary_experiments
