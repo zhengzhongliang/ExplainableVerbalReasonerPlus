@@ -12,7 +12,7 @@ class ExpDatasetUtils:
     project_script_folder_path = file_path.parent.parent
     project_folder_path = project_script_folder_path.parent
 
-    data_folder_path = os.path.join(project_folder_path, "/data/")
+    data_folder_path = os.path.join(project_folder_path, "data/")
 
     @classmethod
     def remove_dataset_version(cls, dataset_name_with_version):
